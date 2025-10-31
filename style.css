@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #0b1229 0%, #172048 40%, #233a73 70%, #1b3d5d 100%);
+  background: linear-gradient(180deg, #4e72a8 0%, #7296d3 50%, #82a8e8 100%);
   color: #f8f9fa;
   padding: 16px;
 }
@@ -29,7 +29,7 @@ body {
   border-radius: 18px;
   overflow: hidden;
   background: #000;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 20px 50px rgba(0, 0, 0, 0.55);
 }
 
 canvas {
@@ -94,7 +94,7 @@ canvas {
   font-size: clamp(8px, 1.9vw, 11px);
   letter-spacing: 0.4px;
   font-weight: 500;
-  text-shadow: 1px 1px 0 rgba(5, 12, 28, 0.8);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
   transition: opacity 160ms ease, color 160ms ease;
   pointer-events: none;
 }
@@ -154,7 +154,7 @@ canvas {
   font-size: clamp(22px, 6vw, 28px);
   letter-spacing: 2px;
   color: #58f5ff;
-  text-shadow: 4px 4px 0 #0d1d3a;
+  text-shadow: 3px 3px 0 #0d1d3a, 5px 5px 10px rgba(0,0,0,0.5);
 }
 
 .overlay__subtitle {

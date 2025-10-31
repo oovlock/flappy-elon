@@ -725,7 +725,7 @@ function drawClouds() {
     const width = 120 * cloud.scale;
     const height = 45 * cloud.scale;
     ctx.globalAlpha = cloud.alpha;
-    ctx.fillStyle = '#9ad9ff';
+    ctx.fillStyle = '#ffffff';
     ctx.beginPath();
     ctx.ellipse(cloud.x, cloud.y, width * 0.5, height * 0.4, 0, 0, Math.PI * 2);
     ctx.ellipse(cloud.x + width * 0.35, cloud.y + 8, width * 0.45, height * 0.5, 0, 0, Math.PI * 2);
