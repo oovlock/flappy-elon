@@ -507,16 +507,16 @@ function createPlayer() {
       return [
         {
           type: 'circle',
-          x: centerX - 2,
-          y: centerY - 5,
-          radius: 18
+          x: centerX,
+          y: centerY - 2,
+          radius: 22
         },
         {
           type: 'rectangle',
           x: this.x + 16,
-          y: centerY + 5,
+          y: centerY + 18,
           width: this.width - 42,
-          height: this.height - 48
+          height: this.height - 60
         }
       ];
     }
