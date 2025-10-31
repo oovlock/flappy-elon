@@ -223,8 +223,8 @@ restartButton.addEventListener('click', () => {
 canvas.addEventListener('pointerdown', handlePrimaryInput);
 [startOverlay, gameOverOverlay].forEach((element) => {
   element.addEventListener('pointerdown', (event) => {
-    if (event.target.closest('.difficulty-button')) {
-      // Game start is handled by the difficulty button's own click listener
+    const isDifficultyButton = event.target.closest('.difficulty-button');
+    if (isDifficultyButton) {
       return;
     }
     if (event.target === restartButton || event.target.closest('#restartButton')) {
@@ -250,8 +250,11 @@ difficultyButtons.forEach((button) => {
   button.addEventListener('click', () => {
     ensureMusicLoop();
     const level = button.dataset.difficulty;
+    const wasActive = button.classList.contains('is-active');
     setDifficulty(level);
-    handlePrimaryInput();
+    if (wasActive || state.current !== 'ready') {
+      handlePrimaryInput();
+    }
   });
 });
 
