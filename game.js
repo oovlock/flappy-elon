@@ -500,12 +500,25 @@ function createPlayer() {
       context.restore();
     },
     bounds() {
-      return {
-        x: this.x + 12,
-        y: this.y + 10,
-        width: this.width - 24,
-        height: this.height - 20
-      };
+      const centerX = this.x + this.width / 2;
+      const centerY = this.y + this.height / 2;
+
+      // Fancier multi-shape collision mask: a circle for the head, a rectangle for the body.
+      return [
+        {
+          type: 'circle',
+          x: centerX - 2,
+          y: centerY - 5,
+          radius: 18
+        },
+        {
+          type: 'rectangle',
+          x: this.x + 16,
+          y: centerY + 5,
+          width: this.width - 42,
+          height: this.height - 48
+        }
+      ];
     }
   };
 }
@@ -575,9 +588,9 @@ function drawPipes() {
 }
 
 function detectCollisions() {
-  const playerRect = player.bounds();
+  const playerShapes = player.bounds();
 
-  if (playerRect.y < 0) {
+  if (player.y < -32) {
     triggerCrash();
     return;
   }
@@ -596,9 +609,16 @@ function detectCollisions() {
       height: WORLD.HEIGHT - pipe.bottomY
     };
 
-    if (rectIntersect(playerRect, topRect) || rectIntersect(playerRect, bottomRect)) {
-      triggerCrash();
-      break;
+    for (const shape of playerShapes) {
+      const hit =
+        shape.type === 'circle'
+          ? circleRectIntersect(shape, topRect) || circleRectIntersect(shape, bottomRect)
+          : rectIntersect(shape, topRect) || rectIntersect(shape, bottomRect);
+
+      if (hit) {
+        triggerCrash();
+        return;
+      }
     }
   }
 }
@@ -803,6 +823,15 @@ function rectIntersect(a, b) {
     a.y < b.y + b.height &&
     a.y + a.height > b.y
   );
+}
+
+function circleRectIntersect(circle, rect) {
+  const closestX = clamp(rect.x, rect.x + rect.width, circle.x);
+  const closestY = clamp(rect.y, rect.y + rect.height, circle.y);
+  const distanceX = circle.x - closestX;
+  const distanceY = circle.y - closestY;
+  const distanceSquared = distanceX * distanceX + distanceY * distanceY;
+  return distanceSquared < circle.radius * circle.radius;
 }
 
 function randomRange(min, max) {
